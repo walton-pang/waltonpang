@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活道浸信會</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --text-color: #333;
+            --bg-light: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "PingFang TC", "Heiti TC", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: #fff;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+        h1, h2, h3 { margin-top: 0; }
+
+        /* --- Header --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links { display: flex; }
+        .nav-links li { margin-left: 20px; }
+        .nav-links a { font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- Hero (Banner) --- */
+        .hero {
+            background-color: #2c3e50;
+            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 50vh; 
+            min-height: 400px;
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 30px; }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            border: 2px solid var(--accent-color);
+        }
+        .btn:hover { background: #d35400; border-color: #d35400; }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            border-color: var(--white);
+        }
+
+        /* --- Sections --- */
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; margin-bottom: 40px; color: var(--primary-color); }
+
+        /* --- About --- */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+        .about-text { flex: 1; min-width: 300px; }
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background: #ddd url('https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=600&q=80') no-repeat center center/cover;
+            border-radius: 8px;
+        }
+
+        /* --- Ministries --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .card h3 { color: var(--primary-color); margin-bottom: 15px; }
+
+        /* --- Video Carousel --- */
+        .carousel-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: auto;
+            padding: 0 40px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 20px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .carousel-track::-webkit-scrollbar { display: none; }
+
+        .video-card {
+            flex: 0 0 85%;
+            min-width: 280px;
+            scroll-snap-align: center;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @media (min-width: 768px) {
+            .video-card { flex: 0 0 48%; }
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #000;
+        }
+
+        .video-link-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+        .video-link-overlay::before {
+            content: "";
+            position: absolute;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(0,0,0,0.4);
+            transition: background 0.3s;
+        }
+        .video-link-overlay:hover::before { background: rgba(0,0,0,0.2); }
+        
+        .play-button {
+            position: relative;
+            z-index: 2;
+            background: #cc0000;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .video-info { padding: 15px; text-align: left; }
+
+        .nav-btn {
+            position: absolute;
+            top: 40%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .nav-btn:hover { background: var(--accent-color); }
+        .prev-btn { left: 0; }
+        .next-btn { right: 0; }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* ADDED: Styles for Social Icons */
+        .social-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            color: var(--white);
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover {
+            color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .nav-links { display: none; }
+            .carousel-wrapper { padding: 0; }
+            .nav-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">活道浸信會</div>
+                <ul class="nav-links">
+                    <li><a href="#home">首頁</a></li>
+                    <li><a href="#about">關於我們</a></li>
+                    <li><a href="#ministries">事工</a></li>
+                    <li><a href="#sermons">講道</a></li>
+                    <li><a href="#contact">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>歡迎來到活道</h1>
+        <p>我們致力於傳揚福音，彼此建立，榮耀我們的主。</p>
+        
+        <div class="hero-buttons">
+            <a href="#about" class="btn">歡迎參加我們的主日崇拜</a>
+            <a href="https://drive.google.com/file/d/1cPP1km3s5wURg2Q7heX39fUhXoZUiIGP/view?usp=sharing" target="_blank" class="btn btn-outline" download>📥 下載本週週刊 (PDF)</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">關於我們</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我們的使命</h3>
+                    <p>活道浸信會成立於 1994 年，座落在溫哥華西區。加入西岸浸信區會及加拿大浸信聯會。我們以宣揚福音，啟導人一同榮耀神為使命。</p>
+                    <p>我們的教會群體致力於聖經教導、信徒團契以及服務社區。</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ministries" class="section" style="background-color: var(--bg-light);">
+        <div class="container">
+            <h2 class="section-title">教會事工</h2>
+            <div class="services-grid">
+                <div class="card">
+                    <h3>主日崇拜</h3>
+                    <p>每週日上午 10:30</p>
+                    <a href="https://drive.google.com/file/d/1cPP1km3s5wURg2Q7heX39fUhXoZUiIGP/view?usp=sharing" style="color: #e67e22; font-weight: bold; margin-top: 5px;" target="_blank" download>點擊下載本週週刊 (PDF)</a>
+                </div>
+                <div class="card">
+                    <h3>主日學</h3>
+                    <p>每週日上午 09:15</p>
+                </div>
+                <div class="card">
+                    <h3>讀經/查經祈禱會(實體)</h3>
+                    <p>每週四上午 10:00-12:00</p>
+                </div>
+                <div class="card">
+                    <h3>普通話查經班 (Zoom)</h3>
+                    <p>每週三 10:00</p>
+                </div>
+                <div class="card">
+                    <h3>團契生活</h3>
+                    <p>建立肢體關係</p>
+                </div>
+                <div class="card">
+                    <h3>資源下載</h3>
+                    <p>教會週刊 / 表格</p>
+                    <a href="https://drive.google.com/file/d/1cPP1km3s5wURg2Q7heX39fUhXoZUiIGP/view?usp=sharing" style="color: #e67e22; font-weight: bold; margin-top: 5px;" target="_blank" download>點擊下載 (PDF)</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sermons" class="section">
+        <div class="container">
+            <h2 class="section-title">最新講道錄音</h2>
+            
+            <div class="carousel-wrapper">
+                <button class="nav-btn prev-btn" onclick="scrollCarousel(-1)">&#10094;</button>
+                <button class="nav-btn next-btn" onclick="scrollCarousel(1)">&#10095;</button>
+
+                <div class="carousel-track" id="track">
+                    
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <a href="https://www.youtube.com/watch?v=IUqMScrrRu4" target="_blank" class="video-link-overlay" 
+                               style="background-image: url('https://img.youtube.com/vi/IUqMScrrRu4/maxresdefault.jpg');">
+                                <div class="play-button">
+                                    &#9658; 前往 YouTube 觀看
+                                </div>
+                            </a>
+                        </div>
+                        <div class="video-info">
+                            <h4>2025年1月5日 主日崇拜</h4>
+                            <p>講員: 張牧師 | (點擊觀看)</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <a href="https://www.youtube.com/watch?v=ScSx7l7g4kI" target="_blank" class="video-link-overlay" 
+                               style="background-image: url('https://img.youtube.com/vi/ScSx7l7g4kI/maxresdefault.jpg');">
+                                <div class="play-button">
+                                    &#9658; 前往 YouTube 觀看
+                                </div>
+                            </a>
+                        </div>
+                        <div class="video-info">
+                            <h4>2024年12月29日 主日崇拜</h4>
+                            <p>講員: 李長老 | 題目: 感恩的回顧</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-wrapper">
+                            <a href="https://www.youtube.com/watch?v=ScSx7l7g4kI" target="_blank" class="video-link-overlay" 
+                               style="background-image: url('https://img.youtube.com/vi/ScSx7l7g4kI/maxresdefault.jpg');">
+                                <div class="play-button">
+                                    &#9658; 前往 YouTube 觀看
+                                </div>
+                            </a>
+                        </div>
+                        <div class="video-info">
+                            <h4>2024年12月25日 聖誕崇拜</h4>
+                            <p>講員: 張牧師 | 題目: 最大的禮物</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <h3>活道浸信會</h3>
+            <p>2105 West 33rd Avenue, Vancouver, B.C., V6M 1B8</p>
+            <p>電話: (604) 261-1612</p>
+
+            <div class="social-links">
+                <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" title="YouTube" target="https://youtube.com/@livingwordchinesebaptistchurch?si=dOgNp93lrh8e2-jP"><i class="fab fa-youtube"></i></a>
+                <a href="mailto:livingword@lwcbc.ca" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollCarousel(direction) {
+            const track = document.getElementById('track');
+            const cardWidth = track.querySelector('.video-card').offsetWidth + 20;
+            
+            track.scrollBy({
+                left: direction * cardWidth,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+</body>
+</html>
