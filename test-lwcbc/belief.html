@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信仰立場 - 活道浸信會</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- General Styles (Same as Main Page) --- */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --text-color: #333;
+            --bg-light: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "PingFang TC", "Heiti TC", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+        h1, h2, h3 { margin-top: 0; }
+
+        /* --- Header & Nav (Same as Main Page) --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links { display: flex; }
+        .nav-links li { margin-left: 20px; position: relative; }
+        .nav-links a { font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        /* --- Dropdown Styles --- */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            min-width: 160px;
+            z-index: 1000;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 0 0 5px 5px;
+        }
+        .nav-links li:hover .dropdown-menu { display: block; }
+        .dropdown-menu li { margin: 0; width: 100%; }
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .dropdown-menu a:hover { background-color: var(--bg-light); color: var(--accent-color); }
+
+        /* --- Subpage Banner --- */
+        .page-header {
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .breadcrumb { font-size: 1rem; opacity: 0.9; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        /* --- Beliefs Content --- */
+        .content-section {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .belief-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .belief-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            align-items: flex-start;
+        }
+
+        .belief-item:last-child { border-bottom: none; }
+
+        .belief-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .belief-text {
+            font-size: 1.1rem;
+            color: #444;
+            padding-top: 5px; /* Align with number visually */
+        }
+
+        /* --- Footer (Same as Main Page) --- */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            color: var(--white);
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover { color: var(--accent-color); transform: translateY(-5px); }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .belief-item { flex-direction: column; gap: 10px; }
+            .belief-icon { width: 30px; height: 30px; font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">活道浸信會</div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">首頁</a></li>
+                    
+                    <li>
+                        <a href="index.html#about" style="color: var(--accent-color);">關於我們 <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">教會歷史</a></li>
+                            <li><a href="staff.html">牧者團隊</a></li>
+                            <li><a href="belief.html">信仰立場</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="index.html#ministries">事工</a></li>
+                    <li><a href="index.html#sermons">講道</a></li>
+                    <li><a href="index.html#contact">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <div class="container">
+            <h1>信仰立場</h1>
+            <div class="breadcrumb">
+                <a href="index.html">首頁</a> &gt; 關於我們 &gt; 信仰立場
+            </div>
+        </div>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="belief-list">
+                
+                <div class="belief-item">
+                    <div class="belief-icon">1</div>
+                    <div class="belief-text">聖父耶和華乃宇宙萬有的主宰。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">2</div>
+                    <div class="belief-text">聖子耶穌基督乃道成肉身，降臨世間，釘身十字架，流血拯救罪人，死後復活升天，永遠存在的獨一救主。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">3</div>
+                    <div class="belief-text">聖靈乃啟迪感化眾人，住在信徒心靈之內，安慰和幫助信徒的保惠師。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">4</div>
+                    <div class="belief-text">聖父﹑聖子﹑聖靈乃三位合一的永活真神。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">5</div>
+                    <div class="belief-text">全部新舊約聖經乃神所默示，尤其是新約聖經乃建立教會的基本。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">6</div>
+                    <div class="belief-text">教會乃基督所創立，以耶穌基督為元首的屬靈團體，每一會友對教會均有應盡的義務。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">7</div>
+                    <div class="belief-text">每一個地方教會，在神帶領之下，有完全的自主權。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">8</div>
+                    <div class="belief-text">基督在創世以前與神同在，降世完成救贖工作後，現今坐在神的右邊，將來還要再臨，迎接信徒，審判世界。</div>
+                </div>
+
+                <div class="belief-item">
+                    <div class="belief-icon">9</div>
+                    <div class="belief-text">本會以根據聖經，固守浸信會共同信仰為原則。</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <h3>活道浸信會</h3>
+            <p>2105 West 33rd Avenue, Vancouver, B.C., V6M 1B8</p>
+            <p>電話: (604) 261-1612</p>
+
+            <div class="social-links">
+                <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon" title="YouTube" target="https://youtube.com/@livingwordchinesebaptistchurch?si=dOgNp93lrh8e2-jP"><i class="fab fa-youtube"></i></a>
+                <a href="mailto:livingword@lwcbc.ca" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
