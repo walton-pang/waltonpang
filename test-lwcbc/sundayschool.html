@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主日學重溫 - 活道浸信會</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- BRANDING VARIABLES --- */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --text-color: #333;
+            --bg-light: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding: 0; }
+
+        /* --- Header --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container-nav {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links { display: flex; }
+        .nav-links li { margin-left: 20px; position: relative; }
+        .nav-links a { font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            min-width: 160px;
+            z-index: 1000;
+            border-top: 3px solid var(--accent-color);
+            border-radius: 0 0 5px 5px;
+        }
+        .nav-links li:hover .dropdown-menu { display: block; }
+        .dropdown-menu li { margin: 0; width: 100%; }
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .dropdown-menu a:hover { background-color: var(--bg-light); color: var(--accent-color); }
+
+        /* --- Main Content --- */
+        .content-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            width: 90%;
+            flex: 1;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        /* Filter Section Styling */
+        .filter-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #eee;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        select, input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Updated to Dark Blue Theme */
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: #34495e;
+        }
+
+        .sort-icon {
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .video-link {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .video-link:hover {
+            text-decoration: underline;
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .social-links {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-icon {
+            color: var(--white);
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-icon:hover { color: var(--accent-color); transform: translateY(-5px); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            table, thead, tbody, th, td, tr { display: block; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; }
+            tr { border: 1px solid #ccc; margin-bottom: 10px; }
+            td {
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+            td:before {
+                position: absolute;
+                top: 12px;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                font-weight: bold;
+            }
+            td:nth-of-type(1):before { content: "日期"; }
+            td:nth-of-type(2):before { content: "經文"; }
+            td:nth-of-type(3):before { content: "講員"; }
+            td:nth-of-type(4):before { content: "題目"; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container-nav">
+            <nav>
+                <div class="logo">活道浸信會</div>
+                <ul class="nav-links">
+                    <li><a href="index1.html#home">首頁</a></li>
+                    
+                    <li>
+                        <a href="index1.html#about">關於我們 <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="history.html">教會歷史</a></li>
+                            <li><a href="staff.html">牧者團隊</a></li>
+                            <li><a href="belief.html">信仰立場</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="index1.html#ministries" style="color: var(--accent-color);">事工 <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="sundayschool.html">主日學重溫</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li>
+                        <a href="index1.html#sermons">講道 <i class="fas fa-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="sermons.html">主日講道</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li><a href="index1.html#contact">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<div class="content-container">
+    <h1>主日學錄音列表</h1>
+    <div class="filter-section">
+        <div class="filter-group">
+            <label for="verseFilter">搜尋經文 (Verse):</label>
+            <input type="text" id="verseFilter" onkeyup="updateView()" placeholder="例如: 約翰福音...">
+        </div>
+
+        <div class="filter-group">
+            <label for="preacherFilter">篩選講員 (Preacher):</label>
+            <select id="preacherFilter" onchange="updateView()">
+                <option value="all">顯示所有講員</option>
+            </select>
+        </div>
+    </div>
+
+    <table id="sermonTable">
+        <thead>
+            <tr>
+                <th style="width: 15%;" onclick="handleSort('date')">
+                    日期 <span id="sort-date" class="sort-icon"></span>
+                </th>
+                <th style="width: 25%;" onclick="handleSort('verse')">
+                    經文 <span id="sort-verse" class="sort-icon"></span>
+                </th>
+                <th style="width: 20%;" onclick="handleSort('preacher')">
+                    講員 <span id="sort-preacher" class="sort-icon"></span>
+                </th>
+                <th style="width: 40%;" onclick="handleSort('title')">
+                    題目 (點擊觀看) <span id="sort-title" class="sort-icon"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+</div>
+
+<footer id="contact">
+    <div class="container-nav">
+        <h3>活道浸信會</h3>
+        <p>2105 West 33rd Avenue, Vancouver, B.C., V6M 1B8</p>
+        <p>電話: (604) 261-1612</p>
+
+        <div class="social-links">
+            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon" title="YouTube" target="https://youtube.com/@livingwordchinesebaptistchurch?si=dOgNp93lrh8e2-jP"><i class="fab fa-youtube"></i></a>
+            <a href="mailto:livingword@lwcbc.ca" class="social-icon" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Copy/Paste same script from sermons.html, but replace data with Sunday School data
+    const sermonData = [
+        { date: "2023-12-24", verse: "路加福音 2:1-20", title: "主日學例子: 大喜的信息", preacher: "陳大衛牧師", videoUrl: "https://www.youtube.com/watch?v=example1" },
+        { date: "2023-12-17", verse: "以賽亞書 9:6", title: "主日學例子: 和平之君", preacher: "李雅各長老", videoUrl: "https://www.youtube.com/watch?v=example2" },
+        // Add more sunday school items here
+    ];
+
+    const tableBody = document.querySelector("#sermonTable tbody");
+    const preacherSelect = document.getElementById("preacherFilter");
+    const verseInput = document.getElementById("verseFilter");
+
+    let sortState = {
+        key: 'date',
+        order: 'desc'
+    };
+
+    function populateFilter() {
+        const preachers = [...new Set(sermonData.map(item => item.preacher))];
+        preachers.forEach(preacher => {
+            const option = document.createElement("option");
+            option.value = preacher;
+            option.textContent = preacher;
+            preacherSelect.appendChild(option);
+        });
+    }
+
+    function renderTable(data) {
+        tableBody.innerHTML = "";
+        
+        document.querySelectorAll('.sort-icon').forEach(el => el.textContent = '');
+        const activeIcon = document.getElementById(`sort-${sortState.key}`);
+        if (activeIcon) {
+            activeIcon.textContent = sortState.order === 'asc' ? '▲' : '▼';
+        }
+
+        if (data.length === 0) {
+            tableBody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>沒有找到相關資料</td></tr>";
+            return;
+        }
+
+        data.forEach(sermon => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${sermon.date}</td>
+                <td>${sermon.verse}</td>
+                <td>${sermon.preacher}</td>
+                <td>
+                    <a href="${sermon.videoUrl}" class="video-link" target="_blank">
+                        ${sermon.title}
+                    </a>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function updateView() {
+        const selectedPreacher = preacherSelect.value;
+        const verseQuery = verseInput.value.toLowerCase().trim();
+
+        let processedData = sermonData.filter(sermon => {
+            const matchPreacher = (selectedPreacher === "all") || (sermon.preacher === selectedPreacher);
+            const matchVerse = sermon.verse.toLowerCase().includes(verseQuery);
+            return matchPreacher && matchVerse;
+        });
+
+        processedData.sort((a, b) => {
+            let valA = a[sortState.key];
+            let valB = b[sortState.key];
+            let comparison = valA.localeCompare(valB, 'zh-Hant');
+            return sortState.order === 'asc' ? comparison : -comparison;
+        });
+
+        renderTable(processedData);
+    }
+
+    function handleSort(key) {
+        if (sortState.key === key) {
+            sortState.order = sortState.order === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortState.key = key;
+            sortState.order = 'asc';
+        }
+        updateView();
+    }
+
+    populateFilter();
+    updateView();
+
+</script>
+
+</body>
+</html>
